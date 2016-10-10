@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link rel="manifest" href="manifest.json">
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="ionImageSearch.min.css" />
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="fabric.min.js"></script>
+   <script src="ionImageSearch.min.js"></script>
+    <script src="ionImageSearch.config.js"></script>
+   <script src="js/ng-cordova.min.js"></script>
+  <script src="cordova.js"></script>
+  <script src="js/app.js"></script>
+  
+  </head>
+  <body ng-app="starter">
+
+    <ion-pane ng-controller="CameraCtrl" style="background-color: #161c2c;">
+    <ion-header-bar class="bar bar-header bar-dark">
+         <h1 class="title">Bienvenido</h1>
+      </ion-header-bar>
+    <ion-content  >
+    <br>
+       <div class="item item-image padding" style="background-color: #161c2c;">
+            <img ng-src="{{pictureUrl}}">
+
+            <br><br><br><br>
+
+            <canvas id="c" width="340"  height="330" ng-style="{'background-image':'url({{pictureUrl}})'}"></canvas>
+          </div>
+      
+    <script type="text/javascript">
+      var canvas = new fabric.Canvas('c');
+      fabric.Image.fromURL('http://vignette1.wikia.nocookie.net/mipequeoponyfanlabor/images/4/4d/Jinx_png_by_serranista-d760jm6.png/revision/latest?cb=20140725020704&path-prefix=es', function(img) {
+        img.scale(0.5).set({
+          left: 150,
+          top: 150,
+          angle: -15
+        });
+        canvas.add(img).setActiveObject(img);
+      });
+    </script>
+
+    </ion-content>
+    <div class="tabs tabs-icon-only">
+        <a class="tab-item">
+          <i class="icon ion-image"></i>
+        </a>
+        <a class="tab-item" >
+          <i class="icon ion-camera" ng-click="takeImage()"></i>
+        </a>
+        <a class="tab-item" >
+          <i class="icon ion-search"  ng-controller="MainCtrl"ng-click="onActivateWebView()" ></i>
+        </a>
+      </div>
+</ion-pane>
+  </body>
+</html>
