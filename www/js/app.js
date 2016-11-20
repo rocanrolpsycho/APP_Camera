@@ -1,8 +1,4 @@
-// Ionic Starter App
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
 var app = angular.module('starter', ['ionic', 'ngCordova', 'ion-image-search'])
 
 app.run(function($ionicPlatform) {
@@ -31,7 +27,7 @@ app.controller('CameraCtrl', function($scope,$rootScope, $cordovaCamera) {
             popoverOptions: CameraPopoverOptions,
             saveToPhotoAlbum: false
         };
-         
+
         $cordovaCamera.getPicture(options).then(function(imageData) {
            console.log('camara data is ' + angular.toJson(imageData));
            $rootScope.pictureUrl = "data:image/jpeg;base64," + imageData;
@@ -39,6 +35,22 @@ app.controller('CameraCtrl', function($scope,$rootScope, $cordovaCamera) {
             console.log('camara error is ' + angular.toJson(imageData));
         });
     }
+    // AQUI EMPIEZA NUESTRO CANVAS
+
+    var img = new Image();
+    img.onload = function(){
+      canvas.setBackgroundImage(img.src, canvas.renderAll.bind(canvas), {
+            originX: 'left',
+            originY: 'top',
+            left: 0,
+            top: 0
+        });
+      };
+      img.src = $rootScope.pictureUrl;
+    canvas.renderAll();
+
+
+    // TERMINA CANVAS
 })
 app.controller('MainCtrl', ['$scope','$rootScope','$webImageSelector', function($scope,$rootScope, $webImageSelector){
   $scope.onActivateWebView = function() {
@@ -48,12 +60,24 @@ app.controller('MainCtrl', ['$scope','$rootScope','$webImageSelector', function(
         $webImageSelector.show(config).then(function(image){
           console.log(angular.toJson(image.image.url));
 
+          // Quitarle las commillas al resultado que regresa en JSON
           var sinComillas = angular.toJson(image.image.url);
+          var myImg  = sinComillas.replace(/\"/g, "");
 
-          $rootScope.pictureUrl = sinComillas.replace(/\"/g, "");
+          addImg(myImg);
+
         });
 
       }
 }])
-
- 
+// funcion para agregar imagenes
+function addImg(myImg){
+fabric.Image.fromURL(myImg, function(oImg) {
+  var l = Math.random() * (150 - 0) + 0;
+  var t = Math.random() * (150 - 0) + 0;
+      oImg.scale(0.2);
+  oImg.set({'left':l});
+            oImg.set({'top':t});
+      canvas.add(oImg);
+  });
+}

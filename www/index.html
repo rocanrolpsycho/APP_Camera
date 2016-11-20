@@ -24,7 +24,7 @@
    <script src="js/ng-cordova.min.js"></script>
   <script src="cordova.js"></script>
   <script src="js/app.js"></script>
-  
+
   </head>
   <body ng-app="starter">
 
@@ -34,24 +34,21 @@
       </ion-header-bar>
     <ion-content  >
     <br>
-       <div class="item item-image padding" style="background-color: #161c2c;">
-            <img ng-src="{{pictureUrl}}">
-
-            <br><br><br><br>
-
-            <canvas id="c" width="340"  height="330" ng-style="{'background-image':'url({{pictureUrl}})'}"></canvas>
+       <div class="item item-image padding" >
+            <!-- <img ng-src="{{pictureUrl}}"> -->
+            <canvas id="c" width="340"  height="330"></canvas>
           </div>
-      
     <script type="text/javascript">
-      var canvas = new fabric.Canvas('c');
-      fabric.Image.fromURL('http://vignette1.wikia.nocookie.net/mipequeoponyfanlabor/images/4/4d/Jinx_png_by_serranista-d760jm6.png/revision/latest?cb=20140725020704&path-prefix=es', function(img) {
-        img.scale(0.5).set({
-          left: 150,
-          top: 150,
-          angle: -15
-        });
-        canvas.add(img).setActiveObject(img);
-      });
+      // var canvas = new fabric.Canvas('c');
+      // fabric.Image.fromURL('http://vignette1.wikia.nocookie.net/mipequeoponyfanlabor/images/4/4d/Jinx_png_by_serranista-d760jm6.png/revision/latest?cb=20140725020704&path-prefix=es', function(img) {
+      //   img.scale(0.5).set({
+      //     left: 150,
+      //     top: 150,
+      //     angle: -15
+      //   });
+      //   canvas.add(img).setActiveObject(img);
+      // });
+var canvas = new fabric.Canvas('c');
     </script>
 
     </ion-content>
